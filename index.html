@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula de Cinemática</title>
+<link rel="stylesheet" href="styles/css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="app-header">
+<div class="brand">
+<span class="brand-mark">Φ</span>
+<div class="brand-text">
+<span class="brand-title">Cinemática</span>
+<span class="brand-subtitle">Plataforma de Estudos</span>
+</div>
+</div>
+<nav class="top-nav">
+<button class="top-nav-btn" data-view="student">Área do estudante</button>
+<button class="top-nav-btn" data-view="admin">Área administrativa</button>
+</nav>
+</header>
+<main class="app-main">
+<aside class="sidebar">
+<section class="sidebar-section">
+<h2 class="sidebar-title">Nível</h2>
+<div class="level-list" id="levelFilter">
+<button class="pill pill-active" data-level="todos">Todos</button>
+<button class="pill" data-level="basico">Básico</button>
+<button class="pill" data-level="intermediario">Intermediário</button>
+<button class="pill" data-level="avancado">Avançado</button>
+</div>
+</section>
+<section class="sidebar-section">
+<h2 class="sidebar-title">Tópicos</h2>
+<div class="topic-list" id="topicFilter"></div>
+</section>
+<section class="sidebar-section">
+<h2 class="sidebar-title">Busca</h2>
+<div class="search-box">
+<input id="searchInput" type="search" placeholder="Buscar por título, conceito ou fórmula">
+</div>
+</section>
+<section class="sidebar-section">
+<h2 class="sidebar-title">Progresso</h2>
+<div class="progress-summary">
+<div class="progress-row">
+<span>Aulas concluídas</span>
+<span id="lessonsCompleted">0 / 0</span>
+</div>
+<div class="progress-bar">
+<div class="progress-bar-fill" id="lessonsProgressFill"></div>
+</div>
+<div class="progress-row">
+<span>Quizzes concluídos</span>
+<span id="quizzesCompleted">0 / 0</span>
+</div>
+<div class="progress-bar">
+<div class="progress-bar-fill" id="quizProgressFill"></div>
+</div>
+</div>
+</section>
+</aside>
+<section class="content">
+<section id="studentView">
+<section class="hero">
+<div class="hero-text">
+<h1>Aprenda cinemática do zero ao avançado</h1>
+<p>Explore aulas organizadas por nível, animações interativas, exercícios práticos e quizzes para consolidar seu aprendizado em movimento retilíneo, circular, vetores, lançamentos e muito mais.</p>
+<div class="hero-actions">
+<button id="startBasicsBtn" class="primary-btn">Começar pelo nível básico</button>
+<button id="continueBtn" class="ghost-btn">Continuar de onde parei</button>
+</div>
+</div>
+<div class="hero-highlight">
+<div class="hero-highlight-card">
+<span class="hero-highlight-value" id="heroLessonsCount">0</span>
+<span class="hero-highlight-label">aulas disponíveis</span>
+</div>
+<div class="hero-highlight-card">
+<span class="hero-highlight-value" id="heroQuizCount">0</span>
+<span class="hero-highlight-label">quizzes interativos</span>
+</div>
+</div>
+</section>
+<section class="cards-section">
+<header class="cards-header">
+<h2>Trilha de aprendizado</h2>
+<p>Avance passo a passo pelos níveis básico, intermediário e avançado de cinemática.</p>
+</header>
+<div class="cards-grid" id="lessonList"></div>
+</section>
+<section class="lesson-detail" id="lessonDetail" hidden>
+<div class="lesson-detail-header">
+<button class="back-btn" id="backToListBtn">Voltar para trilha</button>
+<div class="lesson-meta">
+<span class="badge" id="detailLevel"></span>
+<span class="badge badge-outline" id="detailTopics"></span>
+</div>
+</div>
+<h2 id="detailTitle"></h2>
+<p class="lesson-description" id="detailDescription"></p>
+<section class="lesson-media" id="detailMediaContainer"></section>
+<section class="lesson-resources">
+<h3>Materiais complementares</h3>
+<div id="detailResources"></div>
+</section>
+<section class="lesson-exercises">
+<h3>Exercícios práticos</h3>
+<div id="detailExercises"></div>
+</section>
+<section class="lesson-quiz">
+<div class="lesson-quiz-header">
+<h3>Quiz de verificação</h3>
+<span class="badge" id="quizStatusBadge"></span>
+</div>
+<div id="quizContainer"></div>
+</section>
+<section class="lesson-downloads">
+<h3>Downloads</h3>
+<div id="detailDownloads"></div>
+</section>
+<div class="lesson-actions">
+<button class="primary-btn" id="markCompletedBtn">Marcar aula como concluída</button>
+</div>
+</section>
+</section>
+<section id="adminView" hidden>
+<section class="admin-header">
+<h1>Painel administrativo</h1>
+<p>Gerencie aulas, conteúdos multimídia, exercícios e quizzes de cinemática.</p>
+</section>
+<section class="admin-layout">
+<div class="admin-sidebar">
+<button class="admin-tab-btn admin-tab-active" data-admin-tab="lessons">Aulas</button>
+<button class="admin-tab-btn" data-admin-tab="media">Uploads</button>
+<button class="admin-tab-btn" data-admin-tab="quizzes">Quizzes</button>
+</div>
+<div class="admin-content">
+<section class="admin-panel" data-admin-panel="lessons">
+<h2>Cadastro de aulas</h2>
+<form id="lessonForm" class="admin-form">
+<div class="form-row">
+<label for="lessonTitle">Título da aula</label>
+<input id="lessonTitle" required>
+</div>
+<div class="form-row">
+<label for="lessonLevel">Nível</label>
+<select id="lessonLevel" required>
+<option value="basico">Básico</option>
+<option value="intermediario">Intermediário</option>
+<option value="avancado">Avançado</option>
+</select>
+</div>
+<div class="form-row">
+<label for="lessonTopics">Tópicos cinemáticos</label>
+<select id="lessonTopics" multiple>
+<option value="movimento-retilineo">Movimento retilíneo</option>
+<option value="mru">MRU</option>
+<option value="mruv">MRUV</option>
+<option value="movimento-circular">Movimento circular</option>
+<option value="vetores">Vetores</option>
+<option value="lancamento-obliquo">Lançamento oblíquo</option>
+</select>
+<span class="field-help">Use Ctrl/Cmd + clique para selecionar vários tópicos.</span>
+</div>
+<div class="form-row">
+<label for="lessonDescription">Descrição</label>
+<textarea id="lessonDescription" rows="3" required></textarea>
+</div>
+<div class="form-row two-columns">
+<div>
+<label for="lessonVideoUrl">URL do vídeo</label>
+<input id="lessonVideoUrl" placeholder="https://...">
+<span class="field-help">Use links incorporáveis (YouTube, Vimeo, etc.).</span>
+</div>
+<div>
+<label for="lessonInteractiveUrl">URL da animação interativa</label>
+<input id="lessonInteractiveUrl" placeholder="https://...">
+</div>
+</div>
+<div class="form-row">
+<label for="lessonDownloads">Links de materiais para download</label>
+<textarea id="lessonDownloads" rows="2" placeholder="Um link por linha (PDFs, listas de exercícios, etc.)"></textarea>
+</div>
+<div class="form-row">
+<label for="lessonExercises">Descrição dos exercícios propostos</label>
+<textarea id="lessonExercises" rows="3" placeholder="Liste brevemente os exercícios ou atividades práticas."></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="primary-btn">Salvar aula</button>
+<button type="reset" class="ghost-btn" id="clearLessonFormBtn">Limpar</button>
+</div>
+</form>
+<section class="admin-list-section">
+<h3>Aulas cadastradas</h3>
+<div id="adminLessonList" class="admin-list"></div>
+</section>
+</section>
+<section class="admin-panel" data-admin-panel="media" hidden>
+<h2>Uploads de materiais</h2>
+<p>Organize vídeos, PDFs e imagens associados às aulas.</p>
+<form id="mediaForm" class="admin-form">
+<div class="form-row">
+<label for="mediaTitle">Título do material</label>
+<input id="mediaTitle" required>
+</div>
+<div class="form-row">
+<label for="mediaType">Tipo</label>
+<select id="mediaType" required>
+<option value="video">Vídeo</option>
+<option value="pdf">PDF</option>
+<option value="imagem">Imagem</option>
+</select>
+</div>
+<div class="form-row">
+<label for="mediaFile">Arquivo</label>
+<input id="mediaFile" type="file" accept=".pdf,video/*,image/*">
+<span class="field-help">Os arquivos são armazenados apenas localmente no navegador.</span>
+</div>
+<div class="form-row">
+<label for="mediaLesson">Associar à aula (opcional)</label>
+<select id="mediaLesson"></select>
+</div>
+<div class="form-actions">
+<button type="submit" class="primary-btn">Salvar material</button>
+</div>
+</form>
+<section class="admin-list-section">
+<h3>Materiais cadastrados</h3>
+<div id="mediaList" class="admin-list"></div>
+</section>
+</section>
+<section class="admin-panel" data-admin-panel="quizzes" hidden>
+<h2>Quizzes</h2>
+<form id="quizForm" class="admin-form">
+<div class="form-row">
+<label for="quizLesson">Aula associada</label>
+<select id="quizLesson" required></select>
+</div>
+<div class="form-row">
+<label for="quizQuestion">Enunciado</label>
+<textarea id="quizQuestion" rows="2" required></textarea>
+</div>
+<div class="form-row two-columns">
+<div>
+<label for="quizOptionA">Alternativa A</label>
+<input id="quizOptionA" required>
+</div>
+<div>
+<label for="quizOptionB">Alternativa B</label>
+<input id="quizOptionB" required>
+</div>
+</div>
+<div class="form-row two-columns">
+<div>
+<label for="quizOptionC">Alternativa C</label>
+<input id="quizOptionC" required>
+</div>
+<div>
+<label for="quizOptionD">Alternativa D</label>
+<input id="quizOptionD" required>
+</div>
+</div>
+<div class="form-row">
+<label for="quizCorrect">Alternativa correta</label>
+<select id="quizCorrect" required>
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+</select>
+</div>
+<div class="form-row">
+<label for="quizExplanation">Explicação da resposta</label>
+<textarea id="quizExplanation" rows="3"></textarea>
+</div>
+<div class="form-actions">
+<button type="submit" class="primary-btn">Salvar questão</button>
+<button type="reset" class="ghost-btn" id="clearQuizFormBtn">Limpar</button>
+</div>
+</form>
+<section class="admin-list-section">
+<h3>Quizzes cadastrados</h3>
+<div id="adminQuizList" class="admin-list"></div>
+</section>
+</section>
+</div>
+</section>
+</section>
+</section>
+</main>
+</div>
+<template id="lessonCardTemplate">
+<article class="lesson-card">
+<div class="lesson-card-header">
+<h3 class="lesson-card-title"></h3>
+<span class="badge lesson-card-level"></span>
+</div>
+<p class="lesson-card-description"></p>
+<div class="lesson-card-footer">
+<span class="lesson-card-topics"></span>
+<div class="lesson-card-meta">
+<span class="lesson-card-progress"></span>
+<button class="small-btn lesson-card-open">Abrir</button>
+</div>
+</div>
+</article>
+</template>
+<script>
+const STORAGE_KEYS = {
+lessons: "cinematica_lessons",
+media: "cinematica_media",
+quizzes: "cinematica_quizzes",
+progress: "cinematica_progress"
+};
+const appState = {
+lessons: [],
+media: [],
+quizzes: [],
+progress: {
+completedLessons: {},
+quizResults: {}
+},
+currentLessonId: null,
+filters: {
+level: "todos",
+topic: null,
+search: ""
+}
+};
+function loadState() {
+try {
+const lessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.lessons));
+const media = JSON.parse(localStorage.getItem(STORAGE_KEYS.media));
+const quizzes = JSON.parse(localStorage.getItem(STORAGE_KEYS.quizzes));
+const progress = JSON.parse(localStorage.getItem(STORAGE_KEYS.progress));
+if (Array.isArray(lessons) && lessons.length) appState.lessons = lessons;
+if (Array.isArray(media)) appState.media = media;
+if (Array.isArray(quizzes)) appState.quizzes = quizzes;
+if (progress && typeof progress === "object") appState.progress = progress;
+} catch (e) {}
+if (!appState.lessons.length) {
+seedInitialData();
+}
+saveState();
+}
+function saveState() {
+localStorage.setItem(STORAGE_KEYS.lessons, JSON.stringify(appState.lessons));
+localStorage.setItem(STORAGE_KEYS.media, JSON.stringify(appState.media));
+localStorage.setItem(STORAGE_KEYS.quizzes, JSON.stringify(appState.quizzes));
+localStorage.setItem(STORAGE_KEYS.progress, JSON.stringify(appState.progress));
+}
+function seedInitialData() {
+const lessons = [
+{
+id: "basico-movimento-retilineo",
+title: "Introdução ao movimento retilíneo",
+level: "basico",
+topics: ["movimento-retilineo", "vetores"],
+description: "Conceitos fundamentais de movimento em linha reta, posição, deslocamento, velocidade média e vetores de posição.",
+videoUrl: "https://www.youtube.com/embed/DVbFzPVfCbY",
+interactiveUrl: "",
+downloads: [
+{
+label: "Resumo teórico em PDF",
+url: "https://example.com/resumo-movimento-retilineo.pdf"
+}
+],
+exercises: "Resolva problemas simples de posição x tempo, calcule deslocamentos e identifique trajetórias retilíneas em situações do cotidiano."
+},
+{
+id: "basico-mru",
+title: "Movimento Retilíneo Uniforme (MRU)",
+level: "basico",
+topics: ["mru", "movimento-retilineo"],
+description: "Estudo do movimento com velocidade constante, equações horárias e gráficos posição x tempo.",
+videoUrl: "https://www.youtube.com/embed/KqjjhxEgjyE",
+interactiveUrl: "",
+downloads: [],
+exercises: "Construa e interprete gráficos s x t para diferentes velocidades; calcule deslocamentos em intervalos de tempo dados."
+},
+{
+id: "intermediario-mruv",
+title: "Movimento Retilíneo Uniformemente Variado (MRUV)",
+level: "intermediario",
+topics: ["mruv", "movimento-retilineo"],
+description: "Velocidade variável, aceleração constante e dedução das equações do MRUV.",
+videoUrl: "https://www.youtube.com/embed/CI7v8672Bik",
+interactiveUrl: "",
+downloads: [],
+exercises: "Resolva exercícios envolvendo queda livre, frenagem de veículos e cálculo de aceleração a partir de dados experimentais."
+},
+{
+id: "intermediario-vetores",
+title: "Vetores na cinemática",
+level: "intermediario",
+topics: ["vetores"],
+description: "Representação vetorial de deslocamento, velocidade e aceleração; soma e decomposição vetorial.",
+videoUrl: "",
+interactiveUrl: "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_en.html",
+downloads: [],
+exercises: "Realize a decomposição de vetores em componentes, calcule resultantes e represente graficamente vetores em diferentes sistemas de eixos."
+},
+{
+id: "avancado-movimento-circular",
+title: "Movimento circular e aceleração centrípeta",
+level: "avancado",
+topics: ["movimento-circular"],
+description: "Movimento em trajetória circular, velocidade angular, frequência e aceleração centrípeta.",
+videoUrl: "https://www.youtube.com/embed/UMp7n-DVnUo",
+interactiveUrl: "",
+downloads: [],
+exercises: "Analise movimentos circulares em rodas, ventiladores e satélites; calcule acelerações centrípetas e forças associadas."
+},
+{
+id: "avancado-lancamento-obliquo",
+title: "Lançamento oblíquo de projéteis",
+level: "avancado",
+topics: ["lancamento-obliquo", "mru", "mruv", "vetores"],
+description: "Análise do lançamento de projéteis em duas dimensões, decomposição de movimentos horizontal e vertical.",
+videoUrl: "https://www.youtube.com/embed/6WGZGPjqI_8",
+interactiveUrl: "",
+downloads: [],
+exercises: "Calcule alcance, altura máxima e tempo de voo em lançamentos com diferentes ângulos e velocidades iniciais."
+}
+];
+const quizzes = [
+{
+id: "quiz-mru",
+lessonId: "basico-mru",
+question: "Em um MRU, qual das afirmações a seguir é verdadeira?",
+options: {
+A: "A velocidade varia com o tempo.",
+B: "O deslocamento é sempre nulo.",
+C: "A velocidade é constante e diferente de zero.",
+D: "A aceleração é constante e diferente de zero."
+},
+correct: "C",
+explanation: "No MRU a velocidade é constante e a aceleração é nula."
+},
+{
+id: "quiz-mruv",
+lessonId: "intermediario-mruv",
+question: "No MRUV retilíneo, o gráfico velocidade x tempo é:",
+options: {
+A: "Uma reta horizontal.",
+B: "Uma reta inclinada.",
+C: "Uma parábola.",
+D: "Uma curva qualquer."
+},
+correct: "B",
+explanation: "Como a aceleração é constante, a velocidade varia linearmente com o tempo."
+},
+{
+id: "quiz-lancamento",
+lessonId: "avancado-lancamento-obliquo",
+question: "No lançamento oblíquo sem resistência do ar, a aceleração do projétil é:",
+options: {
+A: "Horizontal e constante.",
+B: "Vertical e constante para baixo.",
+C: "Nula no ponto mais alto.",
+D: "Variável em módulo."
+},
+correct: "B",
+explanation: "Desprezando o ar, a única aceleração é a gravidade, vertical para baixo."
+}
+];
+appState.lessons = lessons;
+appState.quizzes = quizzes;
+}
+function $(selector) {
+return document.querySelector(selector);
+}
+function $all(selector) {
+return Array.from(document.querySelectorAll(selector));
+}
+function deriveTopicsFromLessons() {
+const topicSet = new Set();
+appState.lessons.forEach(lesson => {
+if (Array.isArray(lesson.topics)) {
+lesson.topics.forEach(t => topicSet.add(t));
+}
+});
+return Array.from(topicSet);
+}
+function getTopicLabel(topic) {
+const map = {
+"movimento-retilineo": "Movimento retilíneo",
+mru: "MRU",
+mruv: "MRUV",
+"movimento-circular": "Movimento circular",
+vetores: "Vetores",
+"lancamento-obliquo": "Lançamento oblíquo"
+};
+return map[topic] || topic;
+}
+function getLevelLabel(level) {
+if (level === "basico") return "Básico";
+if (level === "intermediario") return "Intermediário";
+if (level === "avancado") return "Avançado";
+return level;
+}
+function applyFilters() {
+const { level, topic, search } = appState.filters;
+let lessons = [...appState.lessons];
+if (level !== "todos") {
+lessons = lessons.filter(l => l.level === level);
+}
+if (topic) {
+lessons = lessons.filter(l => Array.isArray(l.topics) && l.topics.includes(topic));
+}
+if (search && search.trim()) {
+const q = search.toLowerCase();
+lessons = lessons.filter(l => {
+const haystack = [
+l.title,
+l.description,
+getLevelLabel(l.level),
+(l.topics || []).map(getTopicLabel).join(" ")
+].join(" ").toLowerCase();
+return haystack.includes(q);
+});
+}
+return lessons;
+}
+function renderTopicFilter() {
+const container = document.getElementById("topicFilter");
+container.innerHTML = "";
+const topics = deriveTopicsFromLessons();
+const allBtn = document.createElement("button");
+allBtn.className = "pill" + (appState.filters.topic === null ? " pill-active" : "");
+allBtn.textContent = "Todos";
+allBtn.dataset.topic = "";
+container.appendChild(allBtn);
+topics.forEach(topic => {
+const btn = document.createElement("button");
+btn.className = "pill" + (appState.filters.topic === topic ? " pill-active" : "");
+btn.textContent = getTopicLabel(topic);
+btn.dataset.topic = topic;
+container.appendChild(btn);
+});
+}
+function renderLessonList() {
+const lessonList = document.getElementById("lessonList");
+const template = document.getElementById("lessonCardTemplate");
+lessonList.innerHTML = "";
+const lessons = applyFilters();
+if (!lessons.length) {
+const empty = document.createElement("p");
+empty.className = "empty-state";
+empty.textContent = "Nenhuma aula encontrada para os filtros atuais.";
+lessonList.appendChild(empty);
+return;
+}
+lessons.forEach(lesson => {
+const node = template.content.cloneNode(true);
+const card = node.querySelector(".lesson-card");
+card.dataset.lessonId = lesson.id;
+card.querySelector(".lesson-card-title").textContent = lesson.title;
+card.querySelector(".lesson-card-level").textContent = getLevelLabel(lesson.level);
+card.querySelector(".lesson-card-description").textContent = lesson.description;
+card.querySelector(".lesson-card-topics").textContent = (lesson.topics || []).map(getTopicLabel).join(" • ");
+const progressText = card.querySelector(".lesson-card-progress");
+if (appState.progress.completedLessons[lesson.id]) {
+progressText.textContent = "Concluída";
+progressText.classList.add("text-success");
+} else {
+const quiz = appState.quizzes.find(q => q.lessonId === lesson.id);
+if (quiz && appState.progress.quizResults[quiz.id]) {
+progressText.textContent = "Quiz respondido";
+} else {
+progressText.textContent = "Não iniciado";
+}
+}
+card.querySelector(".lesson-card-open").addEventListener("click", () => openLessonDetail(lesson.id));
+lessonList.appendChild(node);
+});
+updateHeroSummary();
+updateProgressSidebar();
+}
+function updateHeroSummary() {
+const totalLessons = appState.lessons.length;
+const totalQuizzes = appState.quizzes.length;
+document.getElementById("heroLessonsCount").textContent = totalLessons.toString();
+document.getElementById("heroQuizCount").textContent = totalQuizzes.toString();
+}
+function updateProgressSidebar() {
+const totalLessons = appState.lessons.length;
+const completedLessonsCount = Object.keys(appState.progress.completedLessons).length;
+const totalQuizzes = appState.quizzes.length;
+const completedQuizzesCount = Object.keys(appState.progress.quizResults).length;
+document.getElementById("lessonsCompleted").textContent = `${completedLessonsCount} / ${totalLessons}`;
+document.getElementById("quizzesCompleted").textContent = `${completedQuizzesCount} / ${totalQuizzes}`;
+const lessonsFill = document.getElementById("lessonsProgressFill");
+const quizFill = document.getElementById("quizProgressFill");
+lessonsFill.style.width = totalLessons ? `${(completedLessonsCount / totalLessons) * 100}%` : "0%";
+quizFill.style.width = totalQuizzes ? `${(completedQuizzesCount / totalQuizzes) * 100}%` : "0%";
+}
+function openLessonDetail(lessonId) {
+const lesson = appState.lessons.find(l => l.id === lessonId);
+if (!lesson) return;
+appState.currentLessonId = lessonId;
+const detailSection = document.getElementById("lessonDetail");
+detailSection.hidden = false;
+document.querySelector(".cards-section").hidden = true;
+document.querySelector(".hero").hidden = true;
+document.getElementById("detailTitle").textContent = lesson.title;
+document.getElementById("detailLevel").textContent = getLevelLabel(lesson.level);
+document.getElementById("detailTopics").textContent = (lesson.topics || []).map(getTopicLabel).join(" • ");
+document.getElementById("detailDescription").textContent = lesson.description;
+const mediaContainer = document.getElementById("detailMediaContainer");
+mediaContainer.innerHTML = "";
+if (lesson.videoUrl) {
+const videoWrapper = document.createElement("div");
+videoWrapper.className = "responsive-media";
+const iframe = document.createElement("iframe");
+iframe.src = lesson.videoUrl;
+iframe.loading = "lazy";
+iframe.allowFullscreen = true;
+videoWrapper.appendChild(iframe);
+mediaContainer.appendChild(videoWrapper);
+}
+if (lesson.interactiveUrl) {
+const interactiveLink = document.createElement("a");
+interactiveLink.href = lesson.interactiveUrl;
+interactiveLink.target = "_blank";
+interactiveLink.rel = "noopener noreferrer";
+interactiveLink.className = "link-btn";
+interactiveLink.textContent = "Abrir animação interativa";
+mediaContainer.appendChild(interactiveLink);
+}
+if (!lesson.videoUrl && !lesson.interactiveUrl) {
+const info = document.createElement("p");
+info.className = "empty-state";
+info.textContent = "Esta aula não possui mídia associada. Utilize os exercícios e materiais de apoio.";
+mediaContainer.appendChild(info);
+}
+const resourcesContainer = document.getElementById("detailResources");
+resourcesContainer.innerHTML = "";
+if (lesson.exercises) {
+const p = document.createElement("p");
+p.textContent = lesson.exercises;
+resourcesContainer.appendChild(p);
+}
+const exercisesContainer = document.getElementById("detailExercises");
+exercisesContainer.innerHTML = "";
+if (lesson.exercises) {
+const li = document.createElement("p");
+li.textContent = "Veja a descrição acima e registre as resoluções no seu caderno ou no ambiente virtual da sua escola.";
+exercisesContainer.appendChild(li);
+}
+const downloadsContainer = document.getElementById("detailDownloads");
+downloadsContainer.innerHTML = "";
+const downloads = lesson.downloads || [];
+const lessonMedia = appState.media.filter(m => m.lessonId === lesson.id);
+const allDownloads = [
+...downloads,
+...lessonMedia.map(m => ({
+label: `${m.title} (${m.type})`,
+url: m.url || "#"
+}))
+];
+if (!allDownloads.length) {
+const d = document.createElement("p");
+d.className = "empty-state";
+d.textContent = "Sem materiais para download cadastrados para esta aula.";
+downloadsContainer.appendChild(d);
+} else {
+allDownloads.forEach(item => {
+const a = document.createElement("a");
+a.href = item.url;
+a.target = "_blank";
+a.rel = "noopener noreferrer";
+a.textContent = item.label;
+a.className = "download-link";
+downloadsContainer.appendChild(a);
+});
+}
+renderQuizForLesson(lesson.id);
+const completed = appState.progress.completedLessons[lesson.id];
+const markBtn = document.getElementById("markCompletedBtn");
+markBtn.textContent = completed ? "Aula concluída" : "Marcar aula como concluída";
+markBtn.disabled = !!completed;
+}
+function closeLessonDetail() {
+appState.currentLessonId = null;
+document.getElementById("lessonDetail").hidden = true;
+document.querySelector(".cards-section").hidden = false;
+document.querySelector(".hero").hidden = false;
+}
+function renderQuizForLesson(lessonId) {
+const quizContainer = document.getElementById("quizContainer");
+const quizBadge = document.getElementById("quizStatusBadge");
+quizContainer.innerHTML = "";
+quizBadge.textContent = "";
+const quiz = appState.quizzes.find(q => q.lessonId === lessonId);
+if (!quiz) {
+quizContainer.innerHTML = '<p class="empty-state">Nenhum quiz cadastrado para esta aula ainda.</p>';
+quizBadge.textContent = "Sem quiz";
+return;
+}
+const previousResult = appState.progress.quizResults[quiz.id];
+if (previousResult) {
+quizBadge.textContent = previousResult.correct ? "Quiz concluído (acertou)" : "Quiz concluído (errou)";
+quizBadge.className = "badge " + (previousResult.correct ? "badge-success" : "badge-warning");
+}
+const questionEl = document.createElement("p");
+questionEl.className = "quiz-question";
+questionEl.textContent = quiz.question;
+quizContainer.appendChild(questionEl);
+const optionsList = document.createElement("div");
+optionsList.className = "quiz-options";
+["A", "B", "C", "D"].forEach(letter => {
+const option = document.createElement("button");
+option.type = "button";
+option.className = "quiz-option";
+option.dataset.option = letter;
+option.textContent = `${letter}) ${quiz.options[letter]}`;
+if (previousResult && previousResult.selected === letter) {
+option.classList.add(previousResult.correct ? "quiz-option-correct" : "quiz-option-incorrect");
+}
+option.addEventListener("click", () => {
+const selected = option.dataset.option;
+const correct = selected === quiz.correct;
+appState.progress.quizResults[quiz.id] = { selected, correct };
+saveState();
+renderQuizForLesson(lessonId);
+renderLessonList();
+});
+optionsList.appendChild(option);
+});
+quizContainer.appendChild(optionsList);
+if (previousResult) {
+const explanation = document.createElement("p");
+explanation.className = "quiz-explanation";
+explanation.textContent = quiz.explanation || "";
+quizContainer.appendChild(explanation);
+}
+}
+function switchView(view) {
+const studentView = document.getElementById("studentView");
+const adminView = document.getElementById("adminView");
+if (view === "admin") {
+studentView.hidden = true;
+adminView.hidden = false;
+} else {
+studentView.hidden = false;
+adminView.hidden = true;
+}
+$all(".top-nav-btn").forEach(btn => {
+btn.classList.toggle("top-nav-btn-active", btn.dataset.view === view);
+});
+}
+function setupTopNavigation() {
+$all(".top-nav-btn").forEach(btn => {
+btn.addEventListener("click", () => {
+switchView(btn.dataset.view);
+});
+});
+switchView("student");
+}
+function setupFilters() {
+document.getElementById("levelFilter").addEventListener("click", e => {
+if (e.target.tagName !== "BUTTON") return;
+const level = e.target.dataset.level;
+appState.filters.level = level;
+$all("#levelFilter .pill").forEach(btn => btn.classList.remove("pill-active"));
+e.target.classList.add("pill-active");
+renderLessonList();
+});
+document.getElementById("topicFilter").addEventListener("click", e => {
+if (e.target.tagName !== "BUTTON") return;
+const topic = e.target.dataset.topic || null;
+appState.filters.topic = topic;
+$all("#topicFilter .pill").forEach(btn => btn.classList.remove("pill-active"));
+e.target.classList.add("pill-active");
+renderLessonList();
+});
+document.getElementById("searchInput").addEventListener("input", e => {
+appState.filters.search = e.target.value;
+renderLessonList();
+});
+}
+function setupStudentActions() {
+document.getElementById("startBasicsBtn").addEventListener("click", () => {
+appState.filters.level = "basico";
+$all("#levelFilter .pill").forEach(btn => btn.classList.toggle("pill-active", btn.dataset.level === "basico"));
+renderLessonList();
+const firstBasic = applyFilters().find(l => l.level === "basico");
+if (firstBasic) openLessonDetail(firstBasic.id);
+});
+document.getElementById("continueBtn").addEventListener("click", () => {
+const completedIds = Object.keys(appState.progress.completedLessons);
+let nextLesson;
+if (completedIds.length) {
+const lastCompletedId = completedIds[completedIds.length - 1];
+const lastIndex = appState.lessons.findIndex(l => l.id === lastCompletedId);
+const index = lastIndex >= 0 && lastIndex < appState.lessons.length - 1 ? lastIndex + 1 : 0;
+nextLesson = appState.lessons[index];
+} else {
+nextLesson = appState.lessons[0];
+}
+if (nextLesson) {
+openLessonDetail(nextLesson.id);
+}
+});
+document.getElementById("backToListBtn").addEventListener("click", () => {
+closeLessonDetail();
+});
+document.getElementById("markCompletedBtn").addEventListener("click", () => {
+const lessonId = appState.currentLessonId;
+if (!lessonId) return;
+appState.progress.completedLessons[lessonId] = true;
+saveState();
+openLessonDetail(lessonId);
+renderLessonList();
+});
+}
+function setupAdminTabs() {
+const tabButtons = $all(".admin-tab-btn");
+tabButtons.forEach(btn => {
+btn.addEventListener("click", () => {
+const tab = btn.dataset.adminTab;
+tabButtons.forEach(b => b.classList.toggle("admin-tab-active", b === btn));
+$all(".admin-panel").forEach(panel => {
+panel.hidden = panel.dataset.adminPanel !== tab;
+});
+});
+});
+}
+function refreshLessonOptionsInSelects() {
+const lessonSelects = [$("#mediaLesson"), $("#quizLesson")];
+lessonSelects.forEach(select => {
+if (!select) return;
+const currentValue = select.value;
+select.innerHTML = '<option value="">Selecione uma aula</option>';
+appState.lessons.forEach(lesson => {
+const opt = document.createElement("option");
+opt.value = lesson.id;
+opt.textContent = `${getLevelLabel(lesson.level)} • ${lesson.title}`;
+select.appendChild(opt);
+});
+if (currentValue) {
+select.value = currentValue;
+}
+});
+}
+function setupLessonForm() {
+const form = document.getElementById("lessonForm");
+form.addEventListener("submit", e => {
+e.preventDefault();
+const id = form.dataset.editingId || `lesson-${Date.now()}`;
+const title = document.getElementById("lessonTitle").value.trim();
+const level = document.getElementById("lessonLevel").value;
+const topicOptions = Array.from(document.getElementById("lessonTopics").selectedOptions);
+const topics = topicOptions.map(o => o.value);
+const description = document.getElementById("lessonDescription").value.trim();
+const videoUrl = document.getElementById("lessonVideoUrl").value.trim();
+const interactiveUrl = document.getElementById("lessonInteractiveUrl").value.trim();
+const downloadsRaw = document.getElementById("lessonDownloads").value.trim();
+const exercises = document.getElementById("lessonExercises").value.trim();
+const downloads = downloadsRaw
+.split("\n")
+.map(line => line.trim())
+.filter(Boolean)
+.map(line => ({ label: line, url: line }));
+const existingIndex = appState.lessons.findIndex(l => l.id === id);
+const lessonData = {
+id,
+title,
+level,
+topics,
+description,
+videoUrl,
+interactiveUrl,
+downloads,
+exercises
+};
+if (existingIndex >= 0) {
+appState.lessons[existingIndex] = lessonData;
+} else {
+appState.lessons.push(lessonData);
+}
+saveState();
+renderTopicFilter();
+renderLessonList();
+renderAdminLessonList();
+refreshLessonOptionsInSelects();
+form.reset();
+delete form.dataset.editingId;
+});
+document.getElementById("clearLessonFormBtn").addEventListener("click", () => {
+delete form.dataset.editingId;
+});
+}
+function renderAdminLessonList() {
+const list = document.getElementById("adminLessonList");
+list.innerHTML = "";
+if (!appState.lessons.length) {
+list.innerHTML = '<p class="empty-state">Nenhuma aula cadastrada ainda.</p>';
+return;
+}
+appState.lessons.forEach(lesson => {
+const item = document.createElement("div");
+item.className = "admin-list-item";
+item.innerHTML = `
+<div class="admin-list-main">
+<h4>${lesson.title}</h4>
+<span class="badge">${getLevelLabel(lesson.level)}</span>
+<span class="badge badge-outline">${(lesson.topics || []).map(getTopicLabel).join(" • ")}</span>
+</div>
+<div class="admin-list-actions">
+<button data-action="edit">Editar</button>
+<button data-action="delete">Excluir</button>
+</div>
+`;
+item.querySelector("[data-action='edit']").addEventListener("click", () => {
+const form = document.getElementById("lessonForm");
+form.dataset.editingId = lesson.id;
+document.getElementById("lessonTitle").value = lesson.title;
+document.getElementById("lessonLevel").value = lesson.level;
+const selectTopics = document.getElementById("lessonTopics");
+Array.from(selectTopics.options).forEach(opt => {
+opt.selected = lesson.topics && lesson.topics.includes(opt.value);
+});
+document.getElementById("lessonDescription").value = lesson.description || "";
+document.getElementById("lessonVideoUrl").value = lesson.videoUrl || "";
+document.getElementById("lessonInteractiveUrl").value = lesson.interactiveUrl || "";
+document.getElementById("lessonDownloads").value = (lesson.downloads || []).map(d => d.url).join("\n");
+document.getElementById("lessonExercises").value = lesson.exercises || "";
+});
+item.querySelector("[data-action='delete']").addEventListener("click", () => {
+appState.lessons = appState.lessons.filter(l => l.id !== lesson.id);
+delete appState.progress.completedLessons[lesson.id];
+appState.quizzes = appState.quizzes.filter(q => q.lessonId !== lesson.id);
+saveState();
+renderTopicFilter();
+renderLessonList();
+renderAdminLessonList();
+renderAdminQuizList();
+refreshLessonOptionsInSelects();
+});
+list.appendChild(item);
+});
+}
+function setupMediaForm() {
+const form = document.getElementById("mediaForm");
+form.addEventListener("submit", e => {
+e.preventDefault();
+const title = document.getElementById("mediaTitle").value.trim();
+const type = document.getElementById("mediaType").value;
+const fileInput = document.getElementById("mediaFile");
+const lessonId = document.getElementById("mediaLesson").value || null;
+let url = "";
+if (fileInput.files && fileInput.files[0]) {
+url = URL.createObjectURL(fileInput.files[0]);
+}
+const media = {
+id: `media-${Date.now()}`,
+title,
+type,
+url,
+lessonId
+};
+appState.media.push(media);
+saveState();
+renderMediaList();
+form.reset();
+});
+}
+function renderMediaList() {
+const list = document.getElementById("mediaList");
+list.innerHTML = "";
+if (!appState.media.length) {
+list.innerHTML = '<p class="empty-state">Nenhum material cadastrado ainda.</p>';
+return;
+}
+appState.media.forEach(media => {
+const item = document.createElement("div");
+item.className = "admin-list-item";
+const lesson = appState.lessons.find(l => l.id === media.lessonId);
+item.innerHTML = `
+<div class="admin-list-main">
+<h4>${media.title}</h4>
+<span class="badge">${media.type}</span>
+${lesson ? `<span class="badge badge-outline">${lesson.title}</span>` : ""}
+</div>
+<div class="admin-list-actions">
+<button data-action="preview">Abrir</button>
+<button data-action="delete">Excluir</button>
+</div>
+`;
+item.querySelector("[data-action='preview']").addEventListener("click", () => {
+if (media.url) {
+window.open(media.url, "_blank", "noopener,noreferrer");
+}
+});
+item.querySelector("[data-action='delete']").addEventListener("click", () => {
+appState.media = appState.media.filter(m => m.id !== media.id);
+saveState();
+renderMediaList();
+});
+list.appendChild(item);
+});
+}
+function setupQuizForm() {
+const form = document.getElementById("quizForm");
+form.addEventListener("submit", e => {
+e.preventDefault();
+const id = form.dataset.editingId || `quiz-${Date.now()}`;
+const lessonId = document.getElementById("quizLesson").value;
+const question = document.getElementById("quizQuestion").value.trim();
+const options = {
+A: document.getElementById("quizOptionA").value.trim(),
+B: document.getElementById("quizOptionB").value.trim(),
+C: document.getElementById("quizOptionC").value.trim(),
+D: document.getElementById("quizOptionD").value.trim()
+};
+const correct = document.getElementById("quizCorrect").value;
+const explanation = document.getElementById("quizExplanation").value.trim();
+const existingIndex = appState.quizzes.findIndex(q => q.id === id);
+const quizData = { id, lessonId, question, options, correct, explanation };
+if (existingIndex >= 0) {
+appState.quizzes[existingIndex] = quizData;
+} else {
+appState.quizzes.push(quizData);
+}
+saveState();
+renderAdminQuizList();
+if (appState.currentLessonId === lessonId) {
+renderQuizForLesson(lessonId);
+}
+form.reset();
+delete form.dataset.editingId;
+});
+document.getElementById("clearQuizFormBtn").addEventListener("click", () => {
+delete form.dataset.editingId;
+});
+}
+function renderAdminQuizList() {
+const list = document.getElementById("adminQuizList");
+list.innerHTML = "";
+if (!appState.quizzes.length) {
+list.innerHTML = '<p class="empty-state">Nenhuma questão cadastrada ainda.</p>';
+return;
+}
+appState.quizzes.forEach(quiz => {
+const item = document.createElement("div");
+item.className = "admin-list-item";
+const lesson = appState.lessons.find(l => l.id === quiz.lessonId);
+item.innerHTML = `
+<div class="admin-list-main">
+<h4>${quiz.question}</h4>
+${lesson ? `<span class="badge">${lesson.title}</span>` : ""}
+</div>
+<div class="admin-list-actions">
+<button data-action="edit">Editar</button>
+<button data-action="delete">Excluir</button>
+</div>
+`;
+item.querySelector("[data-action='edit']").addEventListener("click", () => {
+const form = document.getElementById("quizForm");
+form.dataset.editingId = quiz.id;
+document.getElementById("quizLesson").value = quiz.lessonId;
+document.getElementById("quizQuestion").value = quiz.question;
+document.getElementById("quizOptionA").value = quiz.options.A;
+document.getElementById("quizOptionB").value = quiz.options.B;
+document.getElementById("quizOptionC").value = quiz.options.C;
+document.getElementById("quizOptionD").value = quiz.options.D;
+document.getElementById("quizCorrect").value = quiz.correct;
+document.getElementById("quizExplanation").value = quiz.explanation || "";
+});
+item.querySelector("[data-action='delete']").addEventListener("click", () => {
+appState.quizzes = appState.quizzes.filter(q => q.id !== quiz.id);
+delete appState.progress.quizResults[quiz.id];
+saveState();
+renderAdminQuizList();
+updateProgressSidebar();
+});
+list.appendChild(item);
+});
+}
+function initApp() {
+loadState();
+setupTopNavigation();
+setupFilters();
+setupStudentActions();
+setupAdminTabs();
+setupLessonForm();
+setupMediaForm();
+setupQuizForm();
+renderTopicFilter();
+renderLessonList();
+renderAdminLessonList();
+renderMediaList();
+renderAdminQuizList();
+refreshLessonOptionsInSelects();
+}
+document.addEventListener("DOMContentLoaded", initApp);
+</script>
+</body>
+</html>
