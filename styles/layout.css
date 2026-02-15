@@ -1,0 +1,171 @@
+ .app-shell {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+.app-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0.75rem 1.5rem;
+border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+backdrop-filter: blur(16px);
+background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.9));
+position: sticky;
+top: 0;
+z-index: 20;
+}
+.brand {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+.brand-mark {
+width: 2.25rem;
+height: 2.25rem;
+border-radius: 999px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background: radial-gradient(circle at 30% 0, #38bdf8, #6366f1);
+color: #f9fafb;
+font-weight: 700;
+}
+.brand-text {
+display: flex;
+flex-direction: column;
+}
+.brand-title {
+font-size: 1rem;
+font-weight: 600;
+}
+.brand-subtitle {
+font-size: 0.75rem;
+color: #9ca3af;
+}
+.top-nav {
+display: flex;
+gap: 0.5rem;
+}
+.top-nav-btn {
+border-radius: 999px;
+border: 1px solid rgba(148, 163, 184, 0.5);
+background: transparent;
+color: #e5e7eb;
+padding: 0.4rem 0.9rem;
+font-size: 0.85rem;
+transition: all 0.15s ease;
+}
+.top-nav-btn:hover {
+border-color: #6366f1;
+background: rgba(99, 102, 241, 0.14);
+}
+.app-main {
+flex: 1;
+display: grid;
+grid-template-columns: 280px minmax(0, 1fr);
+max-width: 1200px;
+margin: 0 auto;
+width: 100%;
+padding: 1rem 1.25rem 2rem;
+gap: 1rem;
+}
+.sidebar {
+border-radius: 1rem;
+background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.12), transparent 55%), linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+border: 1px solid rgba(148, 163, 184, 0.3);
+padding: 1rem;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+.sidebar-section {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+.sidebar-title {
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+color: #9ca3af;
+}
+.level-list,
+.topic-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+}
+.search-box input {
+width: 100%;
+border-radius: 999px;
+border: 1px solid rgba(148, 163, 184, 0.6);
+background: rgba(15, 23, 42, 0.9);
+color: #f9fafb;
+padding: 0.45rem 0.85rem;
+font-size: 0.85rem;
+}
+.search-box input::placeholder {
+color: #6b7280;
+}
+.progress-summary {
+display: flex;
+flex-direction: column;
+gap: 0.35rem;
+font-size: 0.8rem;
+}
+.progress-row {
+display: flex;
+justify-content: space-between;
+}
+.progress-bar {
+width: 100%;
+height: 6px;
+border-radius: 999px;
+background: rgba(31, 41, 55, 0.9);
+overflow: hidden;
+}
+.progress-bar-fill {
+height: 100%;
+width: 0%;
+border-radius: inherit;
+background: linear-gradient(90deg, #22c55e, #a3e635);
+transition: width 0.25s ease;
+}
+.content {
+border-radius: 1rem;
+background: radial-gradient(circle at 100% 0, rgba(129, 140, 248, 0.16), transparent 60%), linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
+border: 1px solid rgba(148, 163, 184, 0.35);
+padding: 1.25rem 1.4rem 1.5rem;
+overflow: hidden;
+}
+@media (max-width: 960px) {
+.app-main {
+grid-template-columns: 1fr;
+padding: 0.75rem 0.9rem 1.5rem;
+}
+.sidebar {
+order: 2;
+margin-top: 0.9rem;
+}
+.content {
+order: 1;
+}
+}
+@media (max-width: 640px) {
+.app-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 0.5rem;
+}
+.top-nav {
+width: 100%;
+justify-content: flex-start;
+}
+.app-main {
+padding: 0.75rem;
+}
+.content {
+padding: 0.9rem;
+}
+}
