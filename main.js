@@ -1,14 +1,10 @@
-import { $ } from "./utils/dom.js";
-import { getLevelLabel } from "./utils/labels.js";
 import { loadLessons, saveLessons, loadQuizzes, saveQuizzes, loadProgress, saveProgress } from "./services/storage.js";
 import { initialLessons, initialQuizzes } from "./services/seed.js";
 import { applyFilters } from "./services/filters.js";
-import { setupNav } from "./components/Nav.js";
 import { renderTopics, renderProgress, setupLevelAndSearch } from "./components/Sidebar.js";
 import { renderHero, setupHeroActions } from "./components/Hero.js";
 import { renderLessonList } from "./components/LessonList.js";
 import { openLessonDetail, closeLessonDetail } from "./components/LessonDetail.js";
-import { showAddLessonModal } from "./components/AddLessonModal.js";
 
 const state = {
 lessons: [],
@@ -55,13 +51,6 @@ openLessonDetail(state, lessonId, persist, rerender);
 };
 
 const setup = () => {
-setupNav(() => {
-showAddLessonModal(state, data => {
-state.lessons.push(data);
-persist();
-rerender();
-});
-});
 setupLevelAndSearch(state, rerender);
 setupHeroActions(state, getFilteredLessons, openLesson, rerender);
 document.getElementById("backToListBtn").addEventListener("click", () => closeLessonDetail());
