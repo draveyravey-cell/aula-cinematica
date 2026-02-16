@@ -1,58 +1,60 @@
 .lessons-menu {
-display: flex;
-flex-direction: column;
-gap: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 .lesson-link {
-width: 100%;
-text-align: left;
-border-radius: 0.6rem;
-border: 1px solid rgba(148, 163, 184, 0.6);
-background: rgba(15, 23, 42, 0.96);
-color: #e5e7eb;
-padding: 0.35rem 0.6rem;
-font-size: 0.8rem;
-transition: all 0.15s ease;
+  width: 100%;
+  text-align: left;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.96);
+  color: #e5e7eb;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  transition: all 0.15s ease;
 }
 .lesson-link:hover {
-border-color: #6366f1;
-background: rgba(15, 23, 42, 1);
+  border-color: #6366f1;
+  background: rgba(15, 23, 42, 1);
 }
 .lesson-link-active {
-border-color: #6366f1;
-background: linear-gradient(135deg, #4f46e5, #06b6d4);
-color: #f9fafb;
+  border-color: #6366f1;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  color: #f9fafb;
 }
 .lesson-shell {
-min-height: 260px;
-display: flex;
-align-items: stretch;
+  min-height: 260px;
+  display: flex;
+  align-items: stretch;
 }
 .lesson-container {
-width: 100%;
-border-radius: 0.9rem;
-border: 1px solid rgba(148, 163, 184, 0.5);
-background: radial-gradient(circle at 10% 0, rgba(56, 189, 248, 0.12), transparent 55%), rgba(15, 23, 42, 0.98);
-padding: 1rem 1.1rem;
-font-size: 0.9rem;
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background:
+    radial-gradient(circle at 10% 0, rgba(56, 189, 248, 0.12), transparent 55%),
+    rgba(15, 23, 42, 0.98);
+  padding: 1rem 1.1rem;
+  font-size: 0.9rem;
 }
 .lesson-container h1 {
-font-size: 1.2rem;
-margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
 }
 .lesson-container-fade-out {
-opacity: 0;
-transition: opacity 0.15s ease;
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 .lesson-container-fade-in {
-opacity: 1;
-transition: opacity 0.2s ease;
+  opacity: 1;
+  transition: opacity 0.2s ease;
 }
 .lesson {
-display: flex;
-flex-direction: column;
-gap: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 .lesson header h1 {
-font-size: 1.2rem;
+  font-size: 1.2rem;
 }
