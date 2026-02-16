@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cinemática • Plataforma</title>
+<title>Cinemática • Navegação de Aulas</title>
 <link rel="stylesheet" href="styles/base.css">
 <link rel="stylesheet" href="styles/layout.css">
 <link rel="stylesheet" href="styles/components.css">
@@ -23,113 +23,20 @@
 <main class="app-main">
 <aside class="sidebar">
 <section class="sidebar-section">
-<h2 class="sidebar-title">Nível</h2>
-<div class="level-list" id="levelFilter">
-<button class="pill pill-active" data-level="todos">Todos</button>
-<button class="pill" data-level="basico">Básico</button>
-<button class="pill" data-level="intermediario">Intermediário</button>
-<button class="pill" data-level="avancado">Avançado</button>
-</div>
-</section>
-<section class="sidebar-section">
-<h2 class="sidebar-title">Tópicos</h2>
-<div class="topic-list" id="topicFilter"></div>
-</section>
-<section class="sidebar-section">
-<h2 class="sidebar-title">Busca</h2>
-<div class="search-box">
-<input id="searchInput" type="search" placeholder="Buscar por título, conceito ou fórmula">
-</div>
-</section>
-<section class="sidebar-section">
-<h2 class="sidebar-title">Progresso</h2>
-<div class="progress-summary">
-<div class="progress-row">
-<span>Aulas concluídas</span>
-<span id="lessonsCompleted">0 / 0</span>
-</div>
-<div class="progress-bar">
-<div class="progress-bar-fill" id="lessonsProgressFill"></div>
-</div>
-<div class="progress-row">
-<span>Quizzes concluídos</span>
-<span id="quizzesCompleted">0 / 0</span>
-</div>
-<div class="progress-bar">
-<div class="progress-bar-fill" id="quizProgressFill"></div>
-</div>
-</div>
+<h2 class="sidebar-title">Aulas</h2>
+<nav id="lessonsMenu" class="lessons-menu"></nav>
 </section>
 </aside>
 <section class="content">
-<section class="hero">
-<div class="hero-text">
-<h1>Aprenda cinemática do zero ao avançado</h1>
-<p>Explore aulas organizadas por nível, vídeos e atividades para consolidar seu aprendizado em MRU, MRUV, vetores, movimento circular e lançamentos.</p>
-<div class="hero-actions">
-<button id="startBasicsBtn" class="primary-btn">Começar pelo nível básico</button>
-<button id="continueBtn" class="ghost-btn">Continuar de onde parei</button>
-</div>
-</div>
-<div class="hero-highlight">
-<div class="hero-highlight-card">
-<span class="hero-highlight-value" id="heroLessonsCount">0</span>
-<span class="hero-highlight-label">aulas disponíveis</span>
-</div>
-<div class="hero-highlight-card">
-<span class="hero-highlight-value" id="heroQuizCount">0</span>
-<span class="hero-highlight-label">quizzes interativos</span>
-</div>
-</div>
-</section>
-<section class="cards-section">
-<header class="cards-header">
-<h2>Trilha de aprendizado</h2>
-<p>Avance pelos níveis básico, intermediário e avançado.</p>
-</header>
-<div class="cards-grid" id="lessonList"></div>
-</section>
-<section class="lesson-detail" id="lessonDetail" hidden>
-<div class="lesson-detail-header">
-<button class="back-btn" id="backToListBtn">Voltar para trilha</button>
-<div class="lesson-meta">
-<span class="badge" id="detailLevel"></span>
-<span class="badge badge-outline" id="detailTopics"></span>
-</div>
-</div>
-<h2 id="detailTitle"></h2>
-<p class="lesson-description" id="detailDescription"></p>
-<section class="lesson-media" id="detailMediaContainer"></section>
-<section class="lesson-quiz">
-<div class="lesson-quiz-header">
-<h3>Quiz de verificação</h3>
-<span class="badge" id="quizStatusBadge"></span>
-</div>
-<div id="quizContainer"></div>
-</section>
-<div class="lesson-actions">
-<button class="primary-btn" id="markCompletedBtn">Marcar aula como concluída</button>
+<section class="lesson-shell">
+<div id="lessonContainer" class="lesson-container">
+<h1>Selecione uma aula</h1>
+<p>Use o menu lateral para escolher um arquivo de aula quando estiver disponível.</p>
 </div>
 </section>
 </section>
 </main>
 </div>
-<template id="lessonCardTemplate">
-<article class="lesson-card">
-<div class="lesson-card-header">
-<h3 class="lesson-card-title"></h3>
-<span class="badge lesson-card-level"></span>
-</div>
-<p class="lesson-card-description"></p>
-<div class="lesson-card-footer">
-<span class="lesson-card-topics"></span>
-<div class="lesson-card-meta">
-<span class="lesson-card-progress"></span>
-<button class="small-btn lesson-card-open">Abrir</button>
-</div>
-</div>
-</article>
-</template>
-<script type="module" src="./main.js"></script>
+<script type="module" src="./aulas.js"></script>
 </body>
 </html>
